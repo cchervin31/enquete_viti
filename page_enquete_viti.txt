@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Enquête Vignes Hybrides – INP AgroToulouse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --burgundy: #5c1a2e;
+    --deep: #3a0d1c;
+    --terracotta: #b85c38;
+    --gold: #c9a84c;
+    --cream: #f5efe6;
+    --parchment: #ede3d4;
+    --text: #2a1a10;
+    --muted: #7a5c48;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 300;
+    max-width: 430px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  /* ?? HERO ??????????????????????????????????? */
+  .hero {
+    position: relative;
+    background: var(--deep);
+    padding: 52px 28px 44px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 110% 30%, rgba(200,100,50,.18) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at -10% 80%, rgba(92,26,46,.5) 0%, transparent 70%);
+  }
+  .vine-bg {
+    position: absolute; inset: 0; opacity: .06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M20 60 Q40 20 60 60 Q80 100 100 60' stroke='%23f5efe6' fill='none' stroke-width='2'/%3E%3Ccircle cx='50' cy='42' r='12' stroke='%23f5efe6' fill='none' stroke-width='1.5'/%3E%3Ccircle cx='70' cy='78' r='12' stroke='%23f5efe6' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-size: 120px 120px;
+  }
+  .badge {
+    position: relative;
+    display: inline-block;
+    background: rgba(201,168,76,.2);
+    border: 1px solid rgba(201,168,76,.5);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    animation: fadeUp .6s ease both;
+  }
+  .hero-title {
+    position: relative;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 14px;
+    animation: fadeUp .6s .1s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    position: relative;
+    color: rgba(245,239,230,.65);
+    font-size: 14px;
+    line-height: 1.65;
+    animation: fadeUp .6s .2s ease both;
+  }
+  .hero-leaf {
+    position: absolute;
+    right: -10px; top: 10px;
+    width: 140px; opacity: .12;
+  }
+
+  /* ?? STRIP ?????????????????????????????????? */
+  .strip {
+    background: var(--terracotta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 12px 20px;
+    animation: fadeUp .6s .3s ease both;
+  }
+  .strip-item {
+    display: flex; align-items: center; gap: 6px;
+    color: #fff; font-size: 12px; font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .strip-item svg { flex-shrink: 0; }
+  .sep { width: 1px; height: 22px; background: rgba(255,255,255,.3); }
+
+  /* ?? SECTIONS ??????????????????????????????? */
+  .section {
+    padding: 28px 24px;
+    border-bottom: 1px solid rgba(42,26,16,.08);
+    opacity: 0; transform: translateY(18px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .section.visible { opacity: 1; transform: none; }
+
+  .section-label {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 12px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(to right, var(--terracotta), transparent);
+  }
+
+  .section p {
+    font-size: 15.5px;
+    line-height: 1.72;
+    color: var(--text);
+  }
+
+  /* ?? KEY POINT CARD ????????????????????????? */
+  .card-question {
+    background: var(--deep);
+    border-radius: 16px;
+    padding: 22px 20px;
+    margin: 4px 0;
+  }
+  .card-question p {
+    color: var(--cream);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .card-question .leaf-icon {
+    font-size: 22px; margin-bottom: 10px; display: block;
+  }
+
+  /* ?? PILLS ?????????????????????????????????? */
+  .pills {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 14px;
+  }
+  .pill {
+    background: var(--parchment);
+    border: 1px solid rgba(184,92,56,.25);
+    color: var(--burgundy);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 13px;
+    border-radius: 20px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .pill::before { content: '?'; color: var(--terracotta); }
+
+  /* ?? INFO ROW ??????????????????????????????? */
+  .info-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; margin-top: 4px;
+  }
+  .info-card {
+    background: var(--parchment);
+    border-radius: 12px;
+    padding: 14px 14px 12px;
+  }
+  .info-card .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 800;
+    color: var(--burgundy);
+    line-height: 1;
+  }
+  .info-card .label-small {
+    font-size: 11.5px; color: var(--muted);
+    margin-top: 4px; line-height: 1.4;
+  }
+
+  /* ?? LOGOS ?????????????????????????????????? */
+  .logos {
+    display: flex; align-items: center;
+    gap: 10px; flex-wrap: wrap;
+  }
+  .logo-tag {
+    background: white;
+    border: 1px solid rgba(42,26,16,.12);
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 11px; font-weight: 600;
+    color: var(--deep);
+    letter-spacing: .02em;
+  }
+
+  /* ?? QR BLOCK ??????????????????????????????? */
+  .qr-block {
+    background: white;
+    border: 2px dashed rgba(92,26,46,.25);
+    border-radius: 16px;
+    padding: 22px;
+    text-align: center;
+    margin-top: 4px;
+  }
+  .qr-placeholder {
+    width: 110px; height: 110px;
+    background: var(--parchment);
+    border-radius: 10px;
+    margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 42px;
+  }
+  .qr-block p {
+    font-size: 12.5px; color: var(--muted); line-height: 1.5;
+  }
+
+  /* ?? CTA ???????????????????????????????????? */
+  .cta-section {
+    padding: 28px 24px 48px;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--parchment) 100%);
+    text-align: center;
+  }
+  .cta-section p {
+    font-size: 13.5px; color: var(--muted); margin-bottom: 20px; line-height: 1.6;
+  }
+  .btn-primary {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, var(--burgundy) 0%, var(--deep) 100%);
+    color: white;
+    font-family: 'Source Serif 4', serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: .03em;
+    padding: 18px 24px;
+    border-radius: 14px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(92,26,46,.35);
+    transition: transform .15s, box-shadow .15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,.15), transparent);
+  }
+  .btn-primary:active { transform: scale(.97); box-shadow: 0 4px 12px rgba(92,26,46,.3); }
+  .btn-primary .arrow { margin-left: 8px; }
+
+  .anon-note {
+    margin-top: 14px;
+    font-size: 11.5px; color: var(--muted);
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+  }
+
+  /* ?? ANIMATIONS ????????????????????????????? */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="vine-bg"></div>
+  <svg class="hero-leaf" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 280 C100 280 20 200 10 120 C0 40 80 0 100 20 C120 0 200 40 190 120 C180 200 100 280 100 280Z" fill="white"/>
+    <path d="M100 280 L100 20" stroke="white" stroke-width="3"/>
+    <path d="M100 120 Q60 90 40 60" stroke="white" stroke-width="2"/>
+    <path d="M100 160 Q140 130 160 100" stroke="white" stroke-width="2"/>
+    <path d="M100 200 Q70 175 55 150" stroke="white" stroke-width="2"/>
+  </svg>
+  <div class="badge">?? Votre expertise compte</div>
+  <h1 class="hero-title">Vignes hybrides&nbsp;:<br><em>et vous, qu'en pensez&nbsp;vous&nbsp;?</em></h1>
+  <p class="hero-sub">Une enquête scientifique menée par INP AgroToulouse pour construire la viticulture de demain en Occitanie.</p>
+</div>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    15 min
+  </div>
+  <div class="sep"></div>
+  <div class="strip-item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    Anonyme
+  </div>
+  <div class="sep"></div>
+  <div class="strip-item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Scientifique
+  </div>
+</div>
+
+<!-- POURQUOI VOUS -->
+<div class="section">
+  <div class="section-label">Pourquoi nous vous contactons</div>
+  <p>Face aux crises climatiques et économiques, la filière viticole d'Occitanie explore de nouvelles voies. <strong>Vous êtes au cœur de ces évolutions.</strong> Votre regard de terrain est irremplaçable pour guider la recherche.</p>
+
+  <div class="card-question" style="margin-top:18px">
+    <span class="leaf-icon">??</span>
+    <p>Les variétés hybrides résistantes aux maladies sont-elles une vraie solution pour réduire les traitements phytosanitaires en Occitanie ?</p>
+  </div>
+</div>
+
+<!-- CE QU'ON CHERCHE -->
+<div class="section">
+  <div class="section-label">Ce que l'enquête explore</div>
+  <div class="pills">
+    <div class="pill">Vos choix techniques</div>
+    <div class="pill">Les atouts des hybrides</div>
+    <div class="pill">Leurs limites perçues</div>
+    <div class="pill">Vos pratiques actuelles</div>
+  </div>
+  <p style="margin-top:16px; font-size:14px; color:var(--muted)">Pas besoin d'avoir planté des hybrides chez vous — votre avis en tant que professionnel est tout aussi précieux !</p>
+</div>
+
+<!-- INFOS PRATIQUES -->
+<div class="section">
+  <div class="section-label">En pratique</div>
+  <div class="info-row">
+    <div class="info-card">
+      <div class="num">~15</div>
+      <div class="label-small">minutes pour répondre</div>
+    </div>
+    <div class="info-card">
+      <div class="num">100%</div>
+      <div class="label-small">anonyme & confidentiel</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUI MÈNE L'ENQUÊTE -->
+<div class="section">
+  <div class="section-label">Projet RESSENTI-VINID'OC</div>
+  <p style="font-size:14px; line-height:1.7">Recherche scientifique menée à <strong>INP AgroToulouse</strong>, en coopération avec les écoles agronomiques régionales, avec le soutien de la <strong>Région Occitanie</strong>.</p>
+  <div class="logos" style="margin-top:14px">
+    <div class="logo-tag">INP AgroToulouse</div>
+    <div class="logo-tag">Région Occitanie</div>
+    <div class="logo-tag">Écoles agronomiques</div>
+  </div>
+</div>
+
+<!-- QR CODE -->
+<div class="section">
+  <div class="section-label">Accéder au questionnaire</div>
+  <div class="qr-block">
+    <div class="qr-placeholder">??</div>
+    <p><strong>Scannez le QR code</strong><br>ou cliquez sur le bouton ci-dessous</p>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <p>Vos réponses guideront l'accompagnement des acteurs de l'innovation viticole. <strong>Merci de donner 15 minutes à la filière.</strong></p>
+  <a href="#" class="btn-primary">
+    Je participe à l'enquête <span class="arrow">?</span>
+  </a>
+  <div class="anon-note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    Vos réponses sont strictement anonymisées
+  </div>
+</div>
+
+<script>
+  // Scroll-triggered reveals
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
